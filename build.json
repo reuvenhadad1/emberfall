@@ -1,7 +1,7 @@
 {
  "game": "EMBERFALL",
- "build": "1.1.0-beta.1+20260925.1135",
- "deployedAt": "2026-09-25T11:56:14.273Z",
+ "build": "1.1.0-beta.1+20260925.1223",
+ "deployedAt": "2026-09-25T12:30:46.406Z",
  "files": {
   "assets/alegreya-sans-cyrillic-400-italic-Bc6UFQqS.woff": "faea9afc59bc0125c8a9faf16139b1ad5a1cae293354039c407e20e8510706eb",
   "assets/alegreya-sans-cyrillic-400-italic-BfxaBkav.woff2": "c370650d41968713c2c1eefb3c7c0f0f65149c0cdc5b5005a67ce2a5958d1081",
@@ -67,13 +67,13 @@
   "assets/cinzel-latin-ext-600-normal-BY9Mq9iK.woff": "a63b4e0285c06622db095f5847f25b4577ef2f9c1b3d6efbd9a71dbb0d80fd6e",
   "assets/cinzel-latin-ext-700-normal-C24KFjuG.woff2": "55b110958b9b614a410cf607c12b1ff2990fa3e5bd0bfacf17e5fd7dce681562",
   "assets/cinzel-latin-ext-700-normal-CORa-yIv.woff": "dd34984698f3fa925365b89530fdfdfe9fa70ee2f681b233f267491145c8ecbd",
-  "assets/main-BhaPsIDP.js": "eadac7f557ff40058624fedef87b20ac700344e37777d018dfdf5b47f07e3fb4",
+  "assets/main-CFSHDHoL.js": "e1adace6fa18e87b18bf6e9839da939b36f4c2e8b0ae4fd1d994814541ef9e61",
   "assets/main-N-mg0YzN.css": "54a6c531a9d84ec439dee31e5a566c4ddc9d6bde4d28501854963bf8fced3a7d",
   "icons/icon-180.png": "63d08273892f964841d43334f046d6534c00e051c0d48d269cbdd91ee7682682",
   "icons/icon-192.png": "72ea74247cce4a4566ed0c191f0bd4c95eb5be8ebae1b153148631f8a0d00f7b",
   "icons/icon-512.png": "3d312c917db5f0d88cf22224d19ed8d8e8e777a01dfc933cf109363a92457efb",
   "icons/icon-maskable-512.png": "30f82573240b03b5684dbf88677ea4fa715746a2bf64c47e5999494d88ae0df6",
-  "index.html": "e1f65369f8e65e2c006bc8702ae5913d26c1e7a0740ac085b1150dad47a37e60",
+  "index.html": "39483031015ae7b13840ab28b9c374ed45672198b4cc972462561a5894f6e2b5",
   "manifest.webmanifest": "7c7153b762077e838164ceb93b74923d6b3fe621a5f9dd1a9b5d268d32fab75e"
  }
 }
