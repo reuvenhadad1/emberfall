@@ -13,25 +13,54 @@
   <meta name="apple-mobile-web-app-title" content="EMBERFALL" />
   <meta name="format-detection" content="telephone=no" />
   <link rel="manifest" href="./manifest.webmanifest" />
+  <script>
+    // Language before anything is drawn (same rule as src/game/settings.ts initialLanguage): the player's saved choice;
+    // else English for a returning player; else Hebrew only when the browser's preferred languages put it before English.
+    (function () {
+      var l = 'en';
+      try {
+        var s = JSON.parse(localStorage.getItem('emberfall.settings') || '{}');
+        var played = false;
+        for (var j = 0; j < localStorage.length; j++) { var k = localStorage.key(j) || ''; if (k === 'emberfall.settings' || k === 'emberfall.meta' || k.indexOf('emberfall.save.') === 0) played = true; }
+        if (s.lang === 'he' || s.lang === 'en') l = s.lang;
+        else if (!played) {
+          var p = navigator.languages && navigator.languages.length ? navigator.languages : [navigator.language];
+          for (var i = 0; i < p.length; i++) { var b = String(p[i] || '').toLowerCase().split('-')[0]; if (b === 'he' || b === 'iw') { l = 'he'; break; } if (b === 'en') break; }
+        }
+      } catch (e) { /* storage blocked: English */ }
+      window.__emberLang = l;
+      if (l === 'he') { document.documentElement.lang = 'he'; document.documentElement.dir = 'rtl'; }
+    })();
+  </script>
   <link rel="apple-touch-icon" href="./icons/icon-180.png" />
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3CradialGradient id='g' cx='50%25' cy='70%25'%3E%3Cstop offset='0' stop-color='%23fff4d6'/%3E%3Cstop offset='.45' stop-color='%23ffb347'/%3E%3Cstop offset='1' stop-color='%23ff6a1f'/%3E%3C/radialGradient%3E%3C/defs%3E%3Cpath d='M32 4C38 18 50 24 50 40a18 18 0 0 1-36 0c0-9 5-14 9-19 1 7 4 10 7 11-3-9 0-18 2-28z' fill='url(%23g)'/%3E%3C/svg%3E" />
   <style>html,body{overscroll-behavior:none;-webkit-text-size-adjust:100%;-webkit-tap-highlight-color:transparent;background:#07060a;height:100%;margin:0}#loading{z-index:100;color:#efe6d2;text-align:center;background:#07060a;flex-direction:column;justify-content:center;align-items:center;gap:14px;padding:16px;font-family:Georgia,serif;transition:opacity .8s;display:flex;position:fixed;inset:0}#loading .t{color:#f7e3bd;letter-spacing:.35em;text-shadow:0 0 24px #ff963299;font-size:28px}#loading .s{border:2px solid #ff963c33;border-top-color:#ff9a3c;border-radius:50%;width:36px;height:36px;animation:1s linear infinite sp}#loading .m{color:#b3a68b;max-width:360px;min-height:1.5em;font-size:14px;line-height:1.5}#loading button{color:#fff4dc;cursor:pointer;background:#7a3a10;border:1px solid #ffb45e;border-radius:6px;min-height:44px;padding:10px 20px;font-size:15px;display:none}#loading.failed .s{display:none}#loading.failed button{display:inline-block}@keyframes sp{to{transform:rotate(360deg)}}</style>
-  <script type="module" crossorigin src="./assets/main-B7ML-APl.js"></script>
-  <link rel="stylesheet" crossorigin href="./assets/main-sfVl1aTV.css">
+  <script type="module" crossorigin src="./assets/main-Cb4OJfaQ.js"></script>
+  <link rel="stylesheet" crossorigin href="./assets/main-CZxpYpFu.css">
 </head>
 <body>
   <div id="loading" role="status" aria-live="polite"><div class="t">EMBERFALL</div><div class="s"></div><div class="m">Loading…</div><button type="button" onclick="location.reload()">Try again</button></div>
-  <noscript><p style="color:#efe6d2;font-family:sans-serif;padding:24px">EMBERFALL needs JavaScript to run.</p></noscript>
+  <noscript><p style="color:#efe6d2;font-family:sans-serif;padding:24px">EMBERFALL needs JavaScript to run.</p><p dir="rtl" lang="he" style="color:#efe6d2;font-family:sans-serif;padding:0 24px">כדי לשחק ב־EMBERFALL צריך להפעיל JavaScript.</p></noscript>
   <div id="app"></div>
   <script>
     // If the game code cannot load (bad connection, very old browser), say so instead of spinning forever.
     (function () {
       var el = document.getElementById('loading');
+      // these few lines appear before the game code (and its catalogs) can load, so they carry their own Hebrew
+      var he = window.__emberLang === 'he';
+      var T = he ? {
+        loading: 'טוען…', again: 'נסו שוב', slow: 'עדיין טוען… בחיבור איטי הטעינה הראשונה עשויה להימשך זמן מה.',
+        timeout: 'הטעינה של EMBERFALL לא הושלמה. בדקו את החיבור ונסו שוב.', part: 'חלק מהמשחק לא ירד. בדקו את החיבור ונסו שוב.'
+      } : {
+        loading: 'Loading…', again: 'Try again', slow: 'Still loading… a slow connection can take a while the first time.',
+        timeout: 'EMBERFALL did not finish loading. Check your connection and try again.', part: 'Part of the game could not be downloaded. Check your connection and try again.'
+      };
+      if (el && he) { el.querySelector('.m').textContent = T.loading; el.querySelector('button').textContent = T.again; el.setAttribute('dir', 'rtl'); }
       function fail(msg) { if (!el || window.__emberBooted) return; el.classList.add('failed'); el.querySelector('.m').textContent = msg; }
       window.__emberFail = fail;
-      setTimeout(function () { if (!window.__emberBooted && el) el.querySelector('.m').textContent = 'Still loading… a slow connection can take a while the first time.'; }, 8000);
-      setTimeout(function () { fail('EMBERFALL did not finish loading. Check your connection and try again.'); }, 45000);
-      window.addEventListener('error', function (e) { if (e && e.target && (e.target.tagName === 'SCRIPT' || e.target.tagName === 'LINK')) fail('Part of the game could not be downloaded. Check your connection and try again.'); }, true);
+      setTimeout(function () { if (!window.__emberBooted && el) el.querySelector('.m').textContent = T.slow; }, 8000);
+      setTimeout(function () { fail(T.timeout); }, 45000);
+      window.addEventListener('error', function (e) { if (e && e.target && (e.target.tagName === 'SCRIPT' || e.target.tagName === 'LINK')) fail(T.part); }, true);
     })();
   </script>
 </body>
